@@ -1,10 +1,26 @@
-<h2 class="mb-4">Products</h2>
+<section class="hero-surface mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <span class="eyebrow">Curated essentials</span>
+      <h2 class="hero-title mb-3">Products</h2>
+      <p class="hero-copy mb-0">
+        Discover premium LEGO toys, building sets, and collectible puzzles for all ages. Build, create, and explore with Shop4You.
+      </p>
+    </div>
+    <div class="col-lg-5 text-lg-end">
+      <div class="hero-pill d-inline-flex align-items-center gap-2">
+        <span class="hero-dot"></span>
+        Premium toy collection for creators
+      </div>
+    </div>
+  </div>
+</section>
 
 <div *ngIf="errorMessage" class="alert alert-danger">
   {{ errorMessage }}
 </div>
 
-<div class="row g-4">
+<div class="row g-4 product-grid">
   <div class="col-md-3" *ngFor="let product of products">
     <div class="card h-100 shadow-sm">
       <img

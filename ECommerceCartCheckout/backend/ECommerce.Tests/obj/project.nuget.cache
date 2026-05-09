@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6RlIomHLNjg=",
+  "dgSpecHash": "SYxRN9XkbS0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\ECommerce.Tests\\ECommerce.Tests.csproj",
+  "projectFilePath": "C:\\Users\\denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\ECommerce.Tests\\ECommerce.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\denis\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\denis\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
