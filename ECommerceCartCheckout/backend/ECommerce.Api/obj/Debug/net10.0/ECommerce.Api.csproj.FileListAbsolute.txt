@@ -68,3 +68,4 @@ C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\b
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Api\obj\Debug\net10.0\ECommerce.Api.pdb
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Api\obj\Debug\net10.0\ECommerce.Api.genruntimeconfig.cache
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Api\obj\Debug\net10.0\ref\ECommerce.Api.dll
+C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Api\obj\Debug\net10.0\ECommerce.Api.sourcelink.json
