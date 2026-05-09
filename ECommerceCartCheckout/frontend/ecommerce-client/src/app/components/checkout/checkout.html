@@ -1,0 +1,68 @@
+<h2 class="mb-4">Checkout</h2>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success">
+  <h5>{{ successMessage }}</h5>
+  <p>Order ID: {{ orderId }}</p>
+  <p>Backend calculated total: {{ backendTotal | currency }}</p>
+
+  <a routerLink="/" class="btn btn-primary">
+    Back to Products
+  </a>
+</div>
+
+<div *ngIf="!successMessage">
+  <div *ngIf="cartItems.length === 0" class="alert alert-info">
+    Your cart is empty.
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="row g-4">
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="mb-3">Shipping Address</h4>
+
+          <textarea
+            class="form-control"
+            rows="5"
+            [(ngModel)]="shippingAddress"
+            placeholder="Enter your full shipping address"
+          ></textarea>
+
+          <button class="btn btn-success mt-3" (click)="placeOrder()">
+            Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="mb-3">Order Summary</h4>
+
+          <div *ngFor="let item of cartItems" class="d-flex justify-content-between border-bottom py-2">
+            <div>
+              {{ item.product.name }} x {{ item.quantity }}
+            </div>
+
+            <div>
+              {{ item.product.price * item.quantity | currency }}
+            </div>
+          </div>
+
+          <h5 class="mt-3">
+            Frontend display total: {{ frontendTotal | currency }}
+          </h5>
+
+          <p class="text-muted small">
+            The final order total is calculated again by the backend using database prices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

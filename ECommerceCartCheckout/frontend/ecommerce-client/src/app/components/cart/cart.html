@@ -1,0 +1,65 @@
+<h2 class="mb-4">Shopping Cart</h2>
+
+<div *ngIf="cartItems.length === 0" class="alert alert-info">
+  Your cart is empty.
+</div>
+
+<div *ngIf="cartItems.length > 0" class="card shadow-sm">
+  <div class="card-body">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th style="width: 180px;">Quantity</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>
+            <strong>{{ item.product.name }}</strong>
+          </td>
+
+          <td>
+            {{ item.product.price | currency }}
+          </td>
+
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-outline-secondary btn-sm" (click)="decreaseQuantity(item.product.id)">
+                -
+              </button>
+
+              <span>{{ item.quantity }}</span>
+
+              <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(item.product.id)">
+                +
+              </button>
+            </div>
+          </td>
+
+          <td>
+            {{ item.product.price * item.quantity | currency }}
+          </td>
+
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="removeFromCart(item.product.id)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h4>Total: {{ total | currency }}</h4>
+
+      <a routerLink="/checkout" class="btn btn-success">
+        Go to Checkout
+      </a>
+    </div>
+  </div>
+</div>

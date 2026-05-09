@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/">E-Commerce Demo</a>
+
+    <div class="d-flex align-items-center gap-3">
+      <a class="nav-link text-white" routerLink="/">Products</a>
+
+      <a class="nav-link text-white" routerLink="/cart">
+        Cart ({{ cartCount$ | async }})
+      </a>
+
+      <a class="nav-link text-white" routerLink="/register" *ngIf="!authService.isLoggedIn()">
+        Register
+      </a>
+
+      <a class="nav-link text-white" routerLink="/login" *ngIf="!authService.isLoggedIn()">
+        Login
+      </a>
+
+      <span class="text-white" *ngIf="authService.isLoggedIn()">
+        Hello, {{ authService.getFullName() }}
+      </span>
+
+      <button class="btn btn-outline-light btn-sm" *ngIf="authService.isLoggedIn()" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>
