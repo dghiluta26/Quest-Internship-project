@@ -21,32 +21,64 @@
 </div>
 
 <div class="row g-4 product-grid">
-  <div class="col-md-3" *ngFor="let product of products">
-    <div class="card h-100 shadow-sm">
-      <img
-        [src]="product.imageUrl"
-        class="card-img-top"
-        [alt]="product.name"
-      />
+  <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+    <div class="product-card h-100">
+      <!-- Product Image Container -->
+      <div class="product-image-container">
+        <img
+          [src]="product.imageUrl"
+          class="product-img"
+          [alt]="product.name"
+        />
+        <div class="product-overlay">
+          <a [routerLink]="['/product', product.id]" class="view-details-link">
+            View Details
+          </a>
+        </div>
+      </div>
 
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ product.name }}</h5>
+      <!-- Product Info Container -->
+      <div class="product-info">
+        <h5 class="product-name">{{ product.name }}</h5>
 
-        <p class="card-text text-muted">
+        <p class="product-sku text-muted">
+          SKU: LEGO{{ product.id }} - 
+          <span *ngIf="product.stock > 0" class="text-success">In Stock</span>
+          <span *ngIf="product.stock === 0" class="text-danger">Out of Stock</span>
+        </p>
+
+        <p class="product-description text-muted">
           {{ product.description }}
         </p>
 
-        <p class="fw-bold">
-          {{ product.price | currency }}
-        </p>
+        <!-- Price and Stock -->
+        <div class="product-footer">
+          <div class="price-stock">
+            <div class="price">
+              {{ product.price | currency }}
+            </div>
+            <div class="stock">
+              Stock: {{ product.stock }}
+            </div>
+          </div>
+        </div>
 
-        <p class="small text-muted">
-          Stock: {{ product.stock }}
-        </p>
-
-        <button class="btn btn-primary mt-auto" (click)="addToCart(product)">
-          Add to Cart
-        </button>
+        <!-- Action Buttons -->
+        <div class="product-actions">
+          <a 
+            [routerLink]="['/product', product.id]" 
+            class="btn btn-sm btn-outline-dark view-btn"
+          >
+            View
+          </a>
+          <button 
+            class="btn btn-sm btn-primary add-btn" 
+            (click)="addToCart(product)"
+            [disabled]="product.stock === 0"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   </div>

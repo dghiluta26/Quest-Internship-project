@@ -1,0 +1,109 @@
+<div *ngIf="errorMessage" class="alert alert-danger mt-4">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="product" class="product-detail-container mt-5">
+  <button class="btn btn-outline-secondary mb-4" (click)="goBack()">
+    ← Back to Products
+  </button>
+
+  <div class="row g-4">
+    <!-- Product Image Section -->
+    <div class="col-lg-6">
+      <div class="product-image-section">
+        <img 
+          [src]="product.imageUrl" 
+          [alt]="product.name"
+          class="img-fluid product-image"
+        />
+      </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <div class="col-lg-6">
+      <div class="product-details">
+        <h1 class="product-title mb-2">{{ product.name }}</h1>
+        
+        <div class="product-rating mb-3">
+          <span class="badge bg-light text-dark">SKU: LEGO{{ product.id }}</span>
+        </div>
+
+        <div class="product-description mb-4">
+          <p class="text-muted">{{ product.description }}</p>
+        </div>
+
+        <!-- Price -->
+        <div class="price-section mb-4">
+          <div class="price-label">Price per item</div>
+          <div class="price-value">
+            {{ product.price | currency }}
+          </div>
+        </div>
+
+        <!-- Stock Status -->
+        <div class="stock-section mb-4">
+          <div class="stock-label">In Stock</div>
+          <div class="stock-value">{{ product.stock }} available</div>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="quantity-section mb-4">
+          <label class="form-label">Quantity</label>
+          <div class="quantity-selector">
+            <button 
+              class="btn btn-outline-secondary" 
+              (click)="decreaseQuantity()"
+              [disabled]="quantity <= 1"
+            >
+              −
+            </button>
+            <input 
+              type="number" 
+              class="form-control quantity-input" 
+              [value]="quantity"
+              readonly
+            />
+            <button 
+              class="btn btn-outline-secondary" 
+              (click)="increaseQuantity()"
+              [disabled]="quantity >= product.stock"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button 
+          class="btn btn-lg btn-primary add-to-cart-btn mb-3 w-100" 
+          (click)="addToCart()"
+          [disabled]="product.stock === 0"
+        >
+          <span *ngIf="!addedToCart">Add to Cart</span>
+          <span *ngIf="addedToCart">✓ Added to Cart!</span>
+        </button>
+
+        <!-- Product Info Cards -->
+        <div class="row g-3 mt-4">
+          <div class="col-md-6">
+            <div class="info-card">
+              <div class="info-label">Availability</div>
+              <div *ngIf="product.stock > 0" class="info-value text-success">
+                In Stock
+              </div>
+              <div *ngIf="product.stock === 0" class="info-value text-danger">
+                Out of Stock
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="info-card">
+              <div class="info-label">Product Type</div>
+              <div class="info-value">LEGO Set</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

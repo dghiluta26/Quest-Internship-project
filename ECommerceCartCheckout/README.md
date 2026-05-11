@@ -270,30 +270,6 @@ ECommerceCartCheckout/
 
 ---
 
-## Troubleshooting
-
-### Backend Issues
-
-**Issue: "Connection string error"**
-- Ensure SQL Server is running
-- Verify the connection string in `appsettings.Development.json`
-- Check SQL Server credentials
-
-**Issue: "Port already in use"**
-- Change the port in `Properties/launchSettings.json`
-- Or kill the process: `netstat -ano | findstr :5000`
-
-### Frontend Issues
-
-**Issue: "Cannot connect to backend"**
-- Verify backend is running at `http://localhost:5000`
-- Check CORS settings in backend's `Program.cs`
-- Check API base URL in Angular services
-
-**Issue: "ng command not found"**
-- Install Angular CLI: `npm install -g @angular/cli`
-
----
 
 ## Database Setup
 
