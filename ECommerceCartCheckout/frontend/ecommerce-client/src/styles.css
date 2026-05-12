@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap');
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 :root {
@@ -19,7 +18,7 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+  font-family: Arial, sans-serif;
   color: #26352d;
   background:
     radial-gradient(circle at top left, rgba(56, 81, 68, 0.1), transparent 32%),
@@ -52,7 +51,7 @@ app-navbar .navbar {
 app-navbar .navbar-brand {
   color: var(--grove-dark) !important;
   letter-spacing: -0.03em;
-  font-family: 'Playfair Display', serif !important;
+  font-family: Arial, sans-serif !important;
   font-size: 1.5rem;
 }
 
@@ -100,7 +99,7 @@ h4,
 h5,
 .display-6,
 .navbar-brand {
-  font-family: 'Playfair Display', serif;
+  font-family: Arial, sans-serif;
   letter-spacing: -0.02em;
 }
 
@@ -150,7 +149,7 @@ h5,
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: Arial, sans-serif;
   color: #f0f7f3;
   font-size: clamp(2rem, 2.2vw + 1.4rem, 3.2rem);
   line-height: 1.05;
