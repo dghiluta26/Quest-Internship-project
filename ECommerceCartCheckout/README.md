@@ -68,16 +68,10 @@ cd ECommerceCartCheckout
 
 1. Open **SQL Server Management Studio (SSMS)** or connect to your SQL Server instance
 2. Right-click on **Databases** → **Restore Database**
-3. Select **Device** and browse to: `database/ECommerceDb.bak.sql`
+3. Select **Device** and browse to: `database/ECommerceDb.bak`
 4. Click **OK** to restore the database
 
-Alternatively, using PowerShell:
-```powershell
-# Restore the database backup
-sqlcmd -S <your-server-name> -U sa -P <your-password> -i "database\ECommerceDb.bak.sql"
-```
-
-Or using the SQL script directly:
+Alternatively, using the SQL script directly:
 ```powershell
 sqlcmd -S <your-server-name> -U sa -P <your-password> -i "database\init.sql"
 ```
@@ -263,7 +257,7 @@ ECommerceCartCheckout/
 │       │   └── models/         # TypeScript interfaces
 │       └── package.json
 ├── database/
-│   ├── ECommerceDb.bak.sql     # Database backup
+│   ├── ECommerceDb.bak         # SQL Server database backup
 │   └── init.sql                # Database initialization script
 └── README.md
 ```

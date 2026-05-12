@@ -57,7 +57,16 @@ public class CheckoutService : ICheckoutService
             }
         }
 
-        var productIds = request.Items.Select(i => i.ProductId).Distinct().ToList();
+        var requestedQuantities = request.Items
+            .GroupBy(i => i.ProductId)
+            .Select(group => new
+            {
+                ProductId = group.Key,
+                Quantity = group.Sum(i => i.Quantity)
+            })
+            .ToList();
+
+        var productIds = requestedQuantities.Select(i => i.ProductId).ToList();
         var products = await _productRepository.GetProductsByIdsAsync(productIds);
 
         if (products.Count != productIds.Count)
@@ -68,7 +77,7 @@ public class CheckoutService : ICheckoutService
         var orderItems = new List<OrderItem>();
         decimal totalPrice = 0;
 
-        foreach (var requestItem in request.Items)
+        foreach (var requestItem in requestedQuantities)
         {
             var product = products.First(p => p.Id == requestItem.ProductId);
 

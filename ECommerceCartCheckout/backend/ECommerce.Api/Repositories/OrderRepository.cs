@@ -38,6 +38,24 @@ public class OrderRepository : IOrderRepository
 
             foreach (var item in items)
             {
+                const string stockQuery = """
+                    UPDATE Products
+                    SET Stock = Stock - @Quantity
+                    WHERE Id = @ProductId
+                        AND Stock >= @Quantity
+                    """;
+
+                using var stockCommand = new SqlCommand(stockQuery, connection, transaction);
+                stockCommand.Parameters.AddWithValue("@ProductId", item.ProductId);
+                stockCommand.Parameters.AddWithValue("@Quantity", item.Quantity);
+
+                var affectedRows = await stockCommand.ExecuteNonQueryAsync();
+
+                if (affectedRows == 0)
+                {
+                    throw new InvalidOperationException("One or more products do not have enough stock.");
+                }
+
                 const string itemQuery = """
                     INSERT INTO OrderItems (OrderId, ProductId, Quantity, UnitPrice, LineTotal)
                     VALUES (@OrderId, @ProductId, @Quantity, @UnitPrice, @LineTotal)

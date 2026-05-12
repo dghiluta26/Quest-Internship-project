@@ -1,6 +1,8 @@
 using ECommerce.Api.DTOs;
 using ECommerce.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace ECommerce.Api.Controllers;
 
@@ -15,6 +17,7 @@ public class CheckoutController : ControllerBase
         _checkoutService = checkoutService;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> PlaceOrder(CheckoutRequest request)
     {

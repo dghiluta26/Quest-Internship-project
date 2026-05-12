@@ -32,8 +32,13 @@
             placeholder="Enter your full shipping address"
           ></textarea>
 
-          <button class="btn btn-success mt-3" (click)="placeOrder()">
-            Place Order
+          <button
+            type="button"
+            class="btn btn-success mt-3"
+            (click)="placeOrder()"
+            [disabled]="isSubmitting"
+          >
+            {{ isSubmitting ? 'Placing order...' : 'Place Order' }}
           </button>
         </div>
       </div>

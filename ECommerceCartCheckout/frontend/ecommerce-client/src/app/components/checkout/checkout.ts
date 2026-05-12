@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -23,6 +23,7 @@ export class CheckoutComponent implements OnInit {
 
   errorMessage = '';
   successMessage = '';
+  isSubmitting = false;
 
   orderId: number | null = null;
   backendTotal: number | null = null;
@@ -30,7 +31,8 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
-    private authService: AuthService
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class CheckoutComponent implements OnInit {
   placeOrder(): void {
     this.errorMessage = '';
     this.successMessage = '';
+
+    if (this.isSubmitting) {
+      return;
+    }
 
     const userId = this.authService.getUserId();
 
@@ -70,6 +76,8 @@ export class CheckoutComponent implements OnInit {
       }))
     };
 
+    this.isSubmitting = true;
+
     this.checkoutService.placeOrder(request).subscribe({
       next: response => {
         this.orderId = response.orderId;
@@ -77,10 +85,26 @@ export class CheckoutComponent implements OnInit {
         this.successMessage = response.message;
 
         this.cartService.clearCart();
+        this.isSubmitting = false;
+        this.changeDetectorRef.detectChanges();
       },
       error: error => {
-        this.errorMessage = error.error?.message || 'Checkout failed.';
+        this.errorMessage = error.error?.message || this.getCheckoutErrorMessage(error.status);
+        this.isSubmitting = false;
+        this.changeDetectorRef.detectChanges();
       }
     });
+  }
+
+  private getCheckoutErrorMessage(status?: number): string {
+    if (status === 0) {
+      return 'Could not reach the API. Make sure the backend is running.';
+    }
+
+    if (status === 401) {
+      return 'Your session expired. Please log in again.';
+    }
+
+    return 'Checkout failed.';
   }
 }

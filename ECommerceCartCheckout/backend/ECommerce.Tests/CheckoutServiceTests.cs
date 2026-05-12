@@ -250,4 +250,66 @@ public class CheckoutServiceTests
 
         Assert.Equal("Not enough stock for product Blue Top.", exception.Message);
     }
+
+    [Fact]
+    public async Task PlaceOrderAsync_CombinesDuplicateProductQuantitiesBeforeCheckingStock()
+    {
+        var productRepositoryMock = new Mock<IProductRepository>();
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var orderRepositoryMock = new Mock<IOrderRepository>();
+
+        userRepositoryMock
+            .Setup(repo => repo.GetByIdAsync(1))
+            .ReturnsAsync(new User
+            {
+                Id = 1,
+                FullName = "Test User",
+                Email = "test@test.com",
+                PasswordHash = "hash"
+            });
+
+        productRepositoryMock
+            .Setup(repo => repo.GetProductsByIdsAsync(It.IsAny<List<int>>()))
+            .ReturnsAsync(new List<Product>
+            {
+                new Product
+                {
+                    Id = 1,
+                    Name = "Blue Top",
+                    Price = 50,
+                    Stock = 3
+                }
+            });
+
+        var service = CreateService(productRepositoryMock, userRepositoryMock, orderRepositoryMock);
+
+        var request = new CheckoutRequest
+        {
+            UserId = 1,
+            ShippingAddress = "Craiova, Romania",
+            Items = new List<CheckoutItemRequest>
+            {
+                new CheckoutItemRequest
+                {
+                    ProductId = 1,
+                    Quantity = 2
+                },
+                new CheckoutItemRequest
+                {
+                    ProductId = 1,
+                    Quantity = 2
+                }
+            }
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PlaceOrderAsync(request)
+        );
+
+        Assert.Equal("Not enough stock for product Blue Top.", exception.Message);
+        orderRepositoryMock.Verify(
+            repo => repo.CreateOrderAsync(It.IsAny<Order>(), It.IsAny<List<OrderItem>>()),
+            Times.Never
+        );
+    }
 }
