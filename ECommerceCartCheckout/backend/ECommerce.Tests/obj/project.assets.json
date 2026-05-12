@@ -2723,8 +2723,8 @@
     },
     "ECommerce.Api/1.0.0": {
       "type": "project",
-      "path": "../ECommerce.Api/ECommerce.Api.csproj",
-      "msbuildProject": "../ECommerce.Api/ECommerce.Api.csproj"
+      "path": "../Ecommerce.Api/ECommerce.Api.csproj",
+      "msbuildProject": "../Ecommerce.Api/ECommerce.Api.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2771,8 +2771,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\ECommerce.Api\\ECommerce.Api.csproj": {
-              "projectPath": "C:\\Users\\denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\ECommerce.Api\\ECommerce.Api.csproj"
+            "C:\\Users\\denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\Ecommerce.Api\\ECommerce.Api.csproj": {
+              "projectPath": "C:\\Users\\denis\\Desktop\\Personal\\Quest Internship project\\ECommerceCartCheckout\\backend\\Ecommerce.Api\\ECommerce.Api.csproj"
             }
           }
         }

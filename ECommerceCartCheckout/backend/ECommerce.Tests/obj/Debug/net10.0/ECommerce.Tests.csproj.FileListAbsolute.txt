@@ -145,3 +145,4 @@ C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\b
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Tests\obj\Debug\net10.0\ECommerce.Tests.pdb
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Tests\obj\Debug\net10.0\ECommerce.Tests.genruntimeconfig.cache
 C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Tests\obj\Debug\net10.0\ref\ECommerce.Tests.dll
+C:\Users\denis\Desktop\Personal\Quest Internship project\ECommerceCartCheckout\backend\ECommerce.Tests\obj\Debug\net10.0\ECommerce.Tests.sourcelink.json
