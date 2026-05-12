@@ -52,6 +52,8 @@ app-navbar .navbar {
 app-navbar .navbar-brand {
   color: var(--grove-dark) !important;
   letter-spacing: -0.03em;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.5rem;
 }
 
 app-navbar .nav-link,
@@ -140,7 +142,7 @@ h5,
   padding: 0.35rem 0.8rem;
   border-radius: 999px;
   background: rgba(56, 81, 68, 0.08);
-  color: var(--grove);
+  color: #e8f5eb;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -149,7 +151,7 @@ h5,
 
 .hero-title {
   font-family: 'Playfair Display', serif;
-  color: var(--grove-dark);
+  color: #f0f7f3;
   font-size: clamp(2rem, 2.2vw + 1.4rem, 3.2rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -157,7 +159,7 @@ h5,
 
 .hero-copy {
   max-width: 44rem;
-  color: #607267;
+  color: #d4e8e1;
   font-size: 1.02rem;
   line-height: 1.75;
 }
@@ -166,7 +168,7 @@ h5,
   padding: 0.8rem 1rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
-  color: var(--grove-dark);
+  color: #2a3e35;
   border: 1px solid rgba(56, 81, 68, 0.08);
   box-shadow: 0 12px 24px rgba(32, 48, 40, 0.06);
   font-weight: 700;
