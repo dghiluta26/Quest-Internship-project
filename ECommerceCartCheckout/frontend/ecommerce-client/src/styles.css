@@ -39,6 +39,9 @@ body::before {
 
 app-navbar {
   display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
 }
 
 app-navbar .navbar {
