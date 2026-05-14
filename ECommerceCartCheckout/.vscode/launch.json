@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Start Backend",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-backend",
+      "program": "${workspaceFolder}/backend/ECommerce.Api/bin/Debug/net10.0/ECommerce.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/backend/ECommerce.Api",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    },
+    {
+      "name": "Start Frontend",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "start-frontend",
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}/frontend/ecommerce-client/src"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start Backend & Frontend",
+      "configurations": ["Start Backend", "Start Frontend"],
+      "stopAll": true
+    }
+  ]
+}
