@@ -15,13 +15,13 @@
       },
       "serverReadyAction": {
         "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-        "uriFormat": "https://localhost:7039/swagger/"
+        "pattern": "\\bNow listening on:\\s+(https://\\S+)",
+        "uriFormat": "%s/swagger/"
       }
     },
     {
       "name": "Start Frontend",
-      "type": "chrome",
+      "type": "msedge",
       "request": "launch",
       "preLaunchTask": "start-frontend",
       "url": "http://localhost:4200/",
