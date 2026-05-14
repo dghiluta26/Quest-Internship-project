@@ -139,12 +139,25 @@ cd backend/ECommerce.Tests
 dotnet test
 ```
 
+Covers `AuthService` and `CheckoutService` via mocked repositories:
+- Registration validation (duplicate email, missing name, missing password)
+- Login validation (user not found, wrong password, valid credentials → JWT issued)
+- Checkout validation (invalid user ID, user not found, empty cart, missing shipping address, zero quantity, insufficient stock, duplicate product lines)
+- Server-side total price calculation
+
 ### Frontend (Jasmine + Karma)
 
 ```bash
 cd frontend/ecommerce-client
 npx ng test
 ```
+
+Covers `CartService`:
+- Add to cart, quantity increment on duplicate, removal, clear
+- Stock limit enforcement on `addToCart` and `increaseQuantity`
+- `getCartQuantity` helper (in-cart and not-in-cart cases)
+- Cart count observable
+- `localStorage` persistence (cart survives across service instances)
 
 ---
 

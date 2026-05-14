@@ -252,6 +252,107 @@ public class CheckoutServiceTests
     }
 
     [Fact]
+    public async Task PlaceOrderAsync_ThrowsException_WhenUserIdIsInvalid()
+    {
+        var productRepositoryMock = new Mock<IProductRepository>();
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var orderRepositoryMock = new Mock<IOrderRepository>();
+
+        var service = CreateService(productRepositoryMock, userRepositoryMock, orderRepositoryMock);
+
+        var request = new CheckoutRequest
+        {
+            UserId = 0,
+            ShippingAddress = "Craiova, Romania",
+            Items = new List<CheckoutItemRequest>
+            {
+                new CheckoutItemRequest { ProductId = 1, Quantity = 1 }
+            }
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PlaceOrderAsync(request)
+        );
+
+        Assert.Equal("Invalid user.", exception.Message);
+        userRepositoryMock.Verify(repo => repo.GetByIdAsync(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task PlaceOrderAsync_ThrowsException_WhenUserDoesNotExist()
+    {
+        var productRepositoryMock = new Mock<IProductRepository>();
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var orderRepositoryMock = new Mock<IOrderRepository>();
+
+        userRepositoryMock
+            .Setup(repo => repo.GetByIdAsync(999))
+            .ReturnsAsync((User?)null);
+
+        var service = CreateService(productRepositoryMock, userRepositoryMock, orderRepositoryMock);
+
+        var request = new CheckoutRequest
+        {
+            UserId = 999,
+            ShippingAddress = "Craiova, Romania",
+            Items = new List<CheckoutItemRequest>
+            {
+                new CheckoutItemRequest { ProductId = 1, Quantity = 1 }
+            }
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PlaceOrderAsync(request)
+        );
+
+        Assert.Equal("User does not exist.", exception.Message);
+        orderRepositoryMock.Verify(
+            repo => repo.CreateOrderAsync(It.IsAny<Order>(), It.IsAny<List<OrderItem>>()),
+            Times.Never
+        );
+    }
+
+    [Fact]
+    public async Task PlaceOrderAsync_ThrowsException_WhenQuantityIsZero()
+    {
+        var productRepositoryMock = new Mock<IProductRepository>();
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var orderRepositoryMock = new Mock<IOrderRepository>();
+
+        userRepositoryMock
+            .Setup(repo => repo.GetByIdAsync(1))
+            .ReturnsAsync(new User
+            {
+                Id = 1,
+                FullName = "Test User",
+                Email = "test@test.com",
+                PasswordHash = "hash"
+            });
+
+        var service = CreateService(productRepositoryMock, userRepositoryMock, orderRepositoryMock);
+
+        var request = new CheckoutRequest
+        {
+            UserId = 1,
+            ShippingAddress = "Craiova, Romania",
+            Items = new List<CheckoutItemRequest>
+            {
+                new CheckoutItemRequest { ProductId = 1, Quantity = 0 }
+            }
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PlaceOrderAsync(request)
+        );
+
+        Assert.Equal("Quantity must be greater than zero.", exception.Message);
+        orderRepositoryMock.Verify(
+            repo => repo.CreateOrderAsync(It.IsAny<Order>(), It.IsAny<List<OrderItem>>()),
+            Times.Never
+        );
+    }
+
+    [Fact]
     public async Task PlaceOrderAsync_CombinesDuplicateProductQuantitiesBeforeCheckingStock()
     {
         var productRepositoryMock = new Mock<IProductRepository>();

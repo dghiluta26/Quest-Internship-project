@@ -151,6 +151,48 @@ public class AuthServiceTests
     }
 
     [Fact]
+    public async Task RegisterAsync_ThrowsException_WhenFullNameIsEmpty()
+    {
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var service = CreateService(userRepositoryMock);
+
+        var request = new RegisterRequest
+        {
+            FullName = "",
+            Email = "test@test.com",
+            Password = "Password123!"
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.RegisterAsync(request)
+        );
+
+        Assert.Equal("Full name is required.", exception.Message);
+        userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<User>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task RegisterAsync_ThrowsException_WhenPasswordIsEmpty()
+    {
+        var userRepositoryMock = new Mock<IUserRepository>();
+        var service = CreateService(userRepositoryMock);
+
+        var request = new RegisterRequest
+        {
+            FullName = "Test User",
+            Email = "test@test.com",
+            Password = ""
+        };
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.RegisterAsync(request)
+        );
+
+        Assert.Equal("Password is required.", exception.Message);
+        userRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<User>()), Times.Never);
+    }
+
+    [Fact]
     public async Task LoginAsync_ReturnsTokenAndUserData_WhenCredentialsAreValid()
     {
         var userRepositoryMock = new Mock<IUserRepository>();

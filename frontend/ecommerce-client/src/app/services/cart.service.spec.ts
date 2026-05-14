@@ -24,6 +24,7 @@ describe('CartService', () => {
   };
 
   beforeEach(() => {
+    localStorage.clear();
     TestBed.configureTestingModule({});
     service = TestBed.inject(CartService);
   });
@@ -104,16 +105,66 @@ describe('CartService', () => {
   });
 
   it('should update cart count', () => {
-  let latestCount = 0;
+    let latestCount = 0;
 
-  service.cartCount$.subscribe(count => {
-    latestCount = count;
+    service.cartCount$.subscribe(count => {
+      latestCount = count;
+    });
+
+    service.addToCart(product1);
+    service.addToCart(product1);
+    service.addToCart(product2);
+
+    expect(latestCount).toBe(3);
   });
 
-  service.addToCart(product1);
-  service.addToCart(product1);
-  service.addToCart(product2);
+  it('should not add items beyond stock limit', () => {
+    const limitedProduct: Product = { ...product1, stock: 2 };
 
-  expect(latestCount).toBe(3);
-});
+    service.addToCart(limitedProduct);
+    service.addToCart(limitedProduct);
+    service.addToCart(limitedProduct); // exceeds stock — should be ignored
+
+    const items = service.getCurrentItems();
+
+    expect(items[0].quantity).toBe(2);
+  });
+
+  it('should not increase quantity beyond stock', () => {
+    const limitedProduct: Product = { ...product1, stock: 2 };
+
+    service.addToCart(limitedProduct);
+    service.addToCart(limitedProduct);
+    service.increaseQuantity(limitedProduct.id); // already at max — should be ignored
+
+    const items = service.getCurrentItems();
+
+    expect(items[0].quantity).toBe(2);
+  });
+
+  it('getCartQuantity should return the current quantity for a product in the cart', () => {
+    service.addToCart(product1);
+    service.addToCart(product1);
+
+    expect(service.getCartQuantity(product1.id)).toBe(2);
+  });
+
+  it('getCartQuantity should return 0 for a product not in the cart', () => {
+    expect(service.getCartQuantity(999)).toBe(0);
+  });
+
+  it('should persist cart to localStorage when items are added', () => {
+    service.addToCart(product1);
+    service.addToCart(product1);
+
+    const stored = localStorage.getItem('cart');
+
+    expect(stored).not.toBeNull();
+
+    const parsed = JSON.parse(stored!);
+
+    expect(parsed.length).toBe(1);
+    expect(parsed[0].product.id).toBe(product1.id);
+    expect(parsed[0].quantity).toBe(2);
+  });
 });
