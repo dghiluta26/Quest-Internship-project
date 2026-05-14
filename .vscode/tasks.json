@@ -19,7 +19,21 @@
       "problemMatcher": "$msCompile"
     },
     {
+      "label": "npm-install-frontend",
+      "type": "shell",
+      "command": "npm",
+      "args": ["install"],
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/ecommerce-client"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    },
+    {
       "label": "start-frontend",
+      "dependsOn": ["npm-install-frontend"],
       "type": "shell",
       "command": "npm",
       "args": ["start"],
