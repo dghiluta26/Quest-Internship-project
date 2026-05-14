@@ -64,7 +64,7 @@ cd Quest-Internship-project
 
 ### 2. Database Setup
 
-Run the initialisation script against LocalDB. This creates the `ECommerceDb` database, all tables, and seeds 8 products:
+Run the initialisation script against LocalDB. This creates the `Shop4YouDB` database, all tables, and seeds 8 products:
 
 ```powershell
 sqlcmd -S "(localdb)\MSSQLLocalDB" -i "database\init.sql"
@@ -72,7 +72,7 @@ sqlcmd -S "(localdb)\MSSQLLocalDB" -i "database\init.sql"
 
 Expected output:
 ```
-Changed database context to 'ECommerceDb'.
+Changed database context to 'Shop4YouDB'.
 (8 rows affected)
 ```
 

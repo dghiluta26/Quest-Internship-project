@@ -1,15 +1,15 @@
 -- Drop existing database if it exists
-IF EXISTS (SELECT * FROM sys.databases WHERE name = 'ECommerceDb')
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'Shop4YouDB')
 BEGIN
-    ALTER DATABASE ECommerceDb SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE ECommerceDb;
+    ALTER DATABASE Shop4YouDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE Shop4YouDB;
 END
 GO
 
-CREATE DATABASE ECommerceDb;
+CREATE DATABASE Shop4YouDB;
 GO
 
-USE ECommerceDb;
+USE Shop4YouDB;
 GO
 
 CREATE TABLE Users (
