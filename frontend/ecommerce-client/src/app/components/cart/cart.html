@@ -35,7 +35,7 @@
 
               <span>{{ item.quantity }}</span>
 
-              <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(item.product.id)">
+              <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(item.product.id)" [disabled]="item.quantity >= item.product.stock">
                 +
               </button>
             </div>

@@ -15,6 +15,7 @@ import { CartService } from '../../services/cart.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   errorMessage = '';
+  cartQuantities: Map<number, number> = new Map();
 
   constructor(
     private productService: ProductService,
@@ -24,6 +25,10 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartQuantities = new Map(items.map(i => [i.product.id, i.quantity]));
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   loadProducts(): void {
@@ -39,6 +44,10 @@ export class ProductListComponent implements OnInit {
         });
       }
     });
+  }
+
+  getCartQuantity(productId: number): number {
+    return this.cartQuantities.get(productId) ?? 0;
   }
 
   addToCart(product: Product): void {

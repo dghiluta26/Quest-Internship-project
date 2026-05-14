@@ -71,12 +71,12 @@
           >
             View
           </a>
-          <button 
-            class="btn btn-sm btn-primary add-btn" 
+          <button
+            class="btn btn-sm btn-primary add-btn"
             (click)="addToCart(product)"
-            [disabled]="product.stock === 0"
+            [disabled]="product.stock === 0 || getCartQuantity(product.id) >= product.stock"
           >
-            Add to Cart
+            {{ getCartQuantity(product.id) >= product.stock ? 'Max in Cart' : 'Add to Cart' }}
           </button>
         </div>
       </div>
